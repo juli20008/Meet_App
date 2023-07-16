@@ -35,3 +35,9 @@ Feature 6: Display Charts Visualizing Event Details
 Given: The user is viewing the event details page.
 When: The user taps on a "View Charts" button or a specific tab within the event details page.
 Then: The application retrieves relevant data and generates visually appealing charts, presenting them to the user within the event details page to provide additional insights or statistics about the event.
+
+SERVERLESS
+
+In the Meet app, serverless functions will be utilized to power certain features that require on-demand processing and scalability. For example, when users filter events by city or specify the number of events they want to view, serverless functions can handle the data processing and filtering tasks. Additionally, serverless technology can be employed to generate and serve the charts for the "View Charts" feature, as it allows for efficient resource allocation and scaling based on the current user demand.
+
+Using serverless functions will provide flexibility and cost-effectiveness for handling variable loads of event data processing and visualization tasks. It allows the Meet app to focus on providing a smooth user experience without the need for managing complex server infrastructures. By leveraging cloud-based serverless solutions, the Meet app can efficiently deliver real-time event data and chart insights to users while minimizing operational overhead and ensuring optimal performance. The serverless architecture will enable the Meet app to dynamically scale resources as needed, ensuring a seamless experience for users during high traffic periods.
