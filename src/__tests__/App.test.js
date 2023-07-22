@@ -1,6 +1,6 @@
 // src/__tests__/App.test.js
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from '../App';
 
 describe('<App /> component', () => {
@@ -15,5 +15,10 @@ describe('<App /> component', () => {
   
     test('render CitySearch', () => {
       expect(AppDOM.querySelector('#city-search')).toBeInTheDocument();
+    });
+
+    test('NumberOfEvents component is rendered correctly', () => {
+      const numberOfEventsComponent = screen.getByTestId('number-of-events-component');
+      expect(numberOfEventsComponent).toBeInTheDocument();
     });
   });
