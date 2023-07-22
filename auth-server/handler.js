@@ -1,6 +1,5 @@
-'use strict';
 
-const { google } = require("googleapis");
+import { google } from "googleapis";
 const calendar = google.calendar("v3");
 const SCOPES = ["https://www.googleapis.com/auth/calendar.events.public.readonly"];
 const { CLIENT_SECRET, CLIENT_ID, CALENDAR_ID } = process.env;
@@ -14,7 +13,7 @@ const oAuth2Client = new google.auth.OAuth2(
   redirect_uris[0]
 );
 
-module.exports.getAuthURL = async () => {
+export async function getAuthURL() {
   /**
    *
    * Scopes array is passed to the `scope` option. 
@@ -35,9 +34,9 @@ module.exports.getAuthURL = async () => {
       authUrl,
     }),
   };
-};
+}
 
-module.exports.getAccessToken = async (event) => {
+export async function getAccessToken(event) {
   // Decode authorization code extracted from the URL query
   const code = decodeURIComponent(`${event.pathParameters.code}`);
 
@@ -72,9 +71,9 @@ module.exports.getAccessToken = async (event) => {
         body: JSON.stringify(error),
       };
     });
-};
+}
 
-module.exports.getCalendarEvents = async (event) => {
+export async function getCalendarEvents(event) {
   const oAuth2Client = new google.auth.OAuth2(
     CLIENT_ID,
     CLIENT_SECRET,
@@ -117,7 +116,7 @@ module.exports.getCalendarEvents = async (event) => {
       // Handle error
       return {
         statusCode: 500,
-        body: JSON.stringify(error),
+        body: JSON.stringify(err),
       };
     });
-  };
+  }
