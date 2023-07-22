@@ -25,28 +25,48 @@ describe('<Event /> component', () => {
     });
     
     
-  /*    test("the 'Show Details' button should be hidden by default and becomes visible when the user clicks on the 'Hide Details' button", () => {
-        render(<Event event={mockData[0]} />);
-        const showDetailsButton = screen.queryByText('Show Details');
-        expect(showDetailsButton).toBeInTheDocument(); // The 'Show Details' button should be in the document by default
-    
-        const hideDetailsButton = screen.getByText('Hide Details');
-        fireEvent.click(hideDetailsButton);
-    
-        expect(showDetailsButton).not.toBeInTheDocument(); // The 'Show Details' button should not be in the document after clicking 'Hide Details'
-      });
-    
-      test("by default, event's detailed section should be visible and becomes hidden when the user clicks on the 'Hide Details' button", () => {
-        render(<Event event={mockData[0]} />);
-        const detailsSection = screen.queryByTestId('details-section'); // Assuming you added a testID to the details section, otherwise use the class name
-        expect(detailsSection).toBeInTheDocument(); // The details section should be in the document by default
-    
-        const hideDetailsButton = screen.getByText('Hide Details');
-        fireEvent.click(hideDetailsButton);
-    
-        expect(detailsSection).not.toBeInTheDocument(); // The details section should not be in the document after clicking 'Hide Details'
-      }); */
+    test("the 'Show Details' button should be hidden by default and becomes visible when the user clicks on the 'Hide Details' button", () => {
+      render(<Event event={mockData[0]} />);
+      
+      const showDetailsButton = screen.getByText(/show details/i);
+      expect(showDetailsButton).toBeInTheDocument(); // The 'Show Details' button should be in the document by default
+      
+      const hideDetailsButton = screen.queryByText(/hide details/i);
+      expect(hideDetailsButton).toBeNull(); // The 'Hide Details' button should not be in the document by default
+      
+      fireEvent.click(showDetailsButton);
+      
+      const hideDetailsButtonAfterClick = screen.getByText(/hide details/i);
+      expect(hideDetailsButtonAfterClick).toBeInTheDocument(); // The 'Hide Details' button should be in the document after clicking 'Show Details'
+    });
 
+    test("by default, event's detailed section should be visible and becomes hidden when the user clicks on the 'Hide Details' button", async () => {
+      render(<Event event={mockData[0]} />);
+    
+      // Ensure that the description is not in the document when showDetails is false
+      const description = screen.queryByText(mockData[0].description);
+      expect(description).not.toBeInTheDocument();
+    
+      const showDetailsButton = screen.getByText('Show Details');
+      fireEvent.click(showDetailsButton);
+    
+      // Wait for the description element to appear in the document
+      const visibleDescription = await screen.findByTestId('details-section');
+    
+      // After clicking the "Show Details" button, the description should be visible
+      expect(visibleDescription).toBeInTheDocument();
+    
+      // Access the description text
+      const descriptionText = visibleDescription.textContent;
+      expect(descriptionText).toBe(mockData[0].description);
+    
+      const hideDetailsButton = screen.getByText('Hide Details');
+      fireEvent.click(hideDetailsButton);
+    
+      // After clicking the "Hide Details" button, the description should be hidden
+      expect(visibleDescription).not.toBeInTheDocument();
+    });
+    
+    
   });
 
-  

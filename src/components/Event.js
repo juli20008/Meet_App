@@ -10,8 +10,6 @@ const Event = ({ event }) => {
   return (
     <div className="event">
       <li className="location">{event.location}</li>
-      <p className="date">{event.date}</p>
-      <p className="time">{event.time}</p>
 
       {showDetails && (
         <div className="details-section" data-testid="details-section"> 
