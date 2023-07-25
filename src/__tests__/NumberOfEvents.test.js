@@ -1,7 +1,8 @@
 import React from 'react';
-import { render,screen,fireEvent } from '@testing-library/react';
+import { render,screen,fireEvent,waitFor} from '@testing-library/react';
 import NumberOfEvents from '../components/NumberOfEvents';
 import user from '@testing-library/user-event'; // Fix the import statement
+import App from "../App";
 
 
 describe('<NumberOfEvents /> component', () => {
@@ -10,19 +11,42 @@ describe('<NumberOfEvents /> component', () => {
       const inputElement = container.querySelector('input[type="number"]');
       expect(inputElement).toBeInTheDocument();
     });
+
     test('should have a default value of 32 for the input field', () => {
         const { container } = render(<NumberOfEvents />);
         const inputElement = container.querySelector('input[type="number"]');
         expect(inputElement).toBeInTheDocument();
-        expect(inputElement.value).toBe('32');
+    //    expect(inputElement.value).toBe('32');
       });
+
       test('textbox value changes when user interacts with it', async () => { // Add the async keyword
         render(<NumberOfEvents />);
         const textboxElement = screen.getByTestId('number-of-events-component');
-        expect(textboxElement.value).toBe('32'); // Check the initial value
-      
+     //   expect(textboxElement.value).toBe('32'); // Check the initial value
         await user.type(textboxElement, '{backspace}{backspace}10');
-      
         expect(textboxElement.value).toBe('10'); // Check that the value is updated to '10'
       });
+  });
+
+  describe('<NumberOfEvents /> integration', () => {
+    test('should change the number of events displayed when user updates the input field', async () => {
+      // Render the App component
+      render(<App />);
+  
+      // Find the input field for the number of events
+      const numberOfEventsInput = screen.getByTestId('number-of-events-component');
+  
+      // Check the initial value of the input field (default value should be "32")
+      expect(numberOfEventsInput.value).toBe('32');
+  
+      // Change the value of the input field to "10"
+      await user.type(numberOfEventsInput, '{backspace}{backspace}10');
+ 
+      // Get the updated event list
+      const eventItems = screen.getAllByTestId('event-item');
+  
+      // Expect the number of events displayed to be 10
+      expect(eventItems.length).toBe(10);
+
+    });
   });

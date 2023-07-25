@@ -1,12 +1,13 @@
 // src/components/NumberOfEvents.js
 import React, { useState } from 'react';
 
-const NumberOfEvents = () => {
-  const [numberOfEvents, setNumberOfEvents] = useState(32); // Set the default value to 32
+const NumberOfEvents = ({ numberOfEvents, onInputChange }) => {
+  const [inputValue, setInputValue] = useState(numberOfEvents);
 
   const handleInputChange = (event) => {
     const value = event.target.value;
-    setNumberOfEvents(value);
+    setInputValue(value);
+    onInputChange(event); // Notify the parent component about the change
   };
 
   return (
@@ -18,10 +19,10 @@ const NumberOfEvents = () => {
         type="number"
         min="1"
         max="100"
-        value={numberOfEvents}
+        value={inputValue}
         onChange={handleInputChange}
       />
-      <p>Showing {numberOfEvents} events</p>
+      <p>Showing {inputValue} events</p>
     </div>
   );
 };

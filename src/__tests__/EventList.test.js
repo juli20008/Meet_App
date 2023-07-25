@@ -12,8 +12,10 @@ describe('<EventList /> component', () => {
  })
 
  test('has an element with "list" role', () => {
-   expect(EventListComponent.queryByRole("list")).toBeInTheDocument();
- });
+  const { queryAllByRole } = render(<EventList events={[]} numberOfEvents={5} />);
+  const listElements = queryAllByRole('list');
+  expect(listElements.length).toBeGreaterThan(0);
+});
 
  test('renders correct number of events', async () => {
     const allEvents = await getEvents(); 
@@ -34,3 +36,4 @@ describe('<EventList /> integration', () => {
     });
   });
 });
+
