@@ -21,6 +21,7 @@ const NumberOfEvents = ({ numberOfEvents, onInputChange }) => {
         max="100"
         value={inputValue}
         onChange={handleInputChange}
+        role="spinbutton" // Add the "role" attribute here
       />
       <p>Showing {inputValue} events</p>
     </div>

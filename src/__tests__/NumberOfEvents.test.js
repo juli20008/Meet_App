@@ -6,23 +6,28 @@ import App from "../App";
 
 
 describe('<NumberOfEvents /> component', () => {
+/*   let InputNOEComponent;
+  beforeEach(() => {
+    InputNOEComponent = render(<NumberOfEvents numberOfEvents={[]} onInputChange={() => {}} />); // Provide a dummy function for onInputChange
+  }); */
+
     test('should contain an input element with type "number"', () => {
-      const { container } = render(<NumberOfEvents />);
-      const inputElement = container.querySelector('input[type="number"]');
+      render(<NumberOfEvents numberOfEvents={32} onInputChange={() => {}} />);
+      const inputElement = screen.getByTestId('number-of-events-component');
       expect(inputElement).toBeInTheDocument();
     });
 
     test('should have a default value of 32 for the input field', () => {
-        const { container } = render(<NumberOfEvents />);
-        const inputElement = container.querySelector('input[type="number"]');
-        expect(inputElement).toBeInTheDocument();
-    //    expect(inputElement.value).toBe('32');
+      render(<NumberOfEvents numberOfEvents={32} onInputChange={() => {}} />);
+      const inputElement = screen.getByTestId('number-of-events-component');
+      expect(inputElement).toBeInTheDocument();
+        expect(inputElement.value).toBe('32');
       });
 
       test('textbox value changes when user interacts with it', async () => { // Add the async keyword
-        render(<NumberOfEvents />);
+        render(<NumberOfEvents numberOfEvents={32} onInputChange={() => {}} />);
         const textboxElement = screen.getByTestId('number-of-events-component');
-     //   expect(textboxElement.value).toBe('32'); // Check the initial value
+          expect(textboxElement.value).toBe('32'); // Check the initial value
         await user.type(textboxElement, '{backspace}{backspace}10');
         expect(textboxElement.value).toBe('10'); // Check that the value is updated to '10'
       });
