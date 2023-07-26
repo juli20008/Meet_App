@@ -11,7 +11,9 @@ const Event = ({ event }) => {
 
   return (
     <div className="event" data-testid="event-item">
-      <li className="location">{event.location}</li>
+     <h2>{event && event.summary}</h2>
+     <li className="location">{event.location}</li>
+     <p>{event && (new Date(event.created)).toUTCString()}</p>
 
       {showDetails && (
         <div className="details-section" data-testid="details-section"> 
