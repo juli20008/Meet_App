@@ -1,3 +1,5 @@
+// src/components/Event.js
+
 import React, { useState } from 'react';
 
 const Event = ({ event }) => {
@@ -8,7 +10,7 @@ const Event = ({ event }) => {
   };
 
   return (
-    <div className="event">
+    <div className="event" data-testid="event-item">
       <li className="location">{event.location}</li>
 
       {showDetails && (
