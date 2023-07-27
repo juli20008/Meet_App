@@ -22,7 +22,7 @@ const Event = ({ event }) => {
       )}
 
       <button
-        className="show-details-button"
+        className="show-details-button" data-testid="expand-button"
         onClick={handleDetailsToggle}
       >
         {showDetails ? 'Hide Details' : 'Show Details'}
