@@ -4,7 +4,7 @@ import CitySearch from './components/CitySearch';
 import EventList from './components/EventList';
 import NumberOfEvents from './components/NumberOfEvents';
 import { extractLocations, getEvents } from './api';
-import { InfoAlert, ErrorAlert } from './components/Alert';
+import { InfoAlert, ErrorAlert, WarningAlert } from './components/Alert';
 
 import './App.css';
 
@@ -15,8 +15,17 @@ const App = () => {
   const [currentCity, setCurrentCity] = useState("See all cities");
   const [infoAlert, setInfoAlert] = useState("");
   const [errorAlert, setErrorAlert] = useState("");
+  const [warningAlert, setWarningAlert] = useState("");
+
 
   useEffect(() => {
+    let warningText
+    if (navigator.onLine) {
+      warningText = "";
+    } else {
+      warningText = "App is now offline.";
+    }
+    setWarningAlert(warningText);
     fetchData();
   }, [currentCity, currentNOE]); // Add currentNOE as a dependency
 
@@ -40,17 +49,20 @@ const App = () => {
       <div className="alerts-container">
         {infoAlert.length ? <InfoAlert text={infoAlert}/> : null}
         {errorAlert.length ? <ErrorAlert text={errorAlert}/> : null}
+        {warningAlert.length ? <WarningAlert text={warningAlert}/> : null}
       </div>
       <CitySearch allLocations={allLocations} 
                   setCurrentCity={setCurrentCity} 
-                  setInfoAlert={setInfoAlert}/>
-      <EventList events={events} numberOfEvents={currentNOE} />
+                  setInfoAlert={setInfoAlert}
+                  setWarningAlert={setWarningAlert}/>
       <NumberOfEvents
         id="number-of-events-component"
         numberOfEvents={currentNOE}
         onInputChange={handleInputChange}// Pass the callback function to the NumberOfEvents component
         setErrorAlert={setErrorAlert}
+        setWarningAlert={setWarningAlert}
       />
+      <EventList events={events} numberOfEvents={currentNOE} />
     </div>
   );
 }

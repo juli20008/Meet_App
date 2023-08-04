@@ -29,7 +29,7 @@ const NumberOfEvents = ({ numberOfEvents, onInputChange, setErrorAlert }) => {
         onChange={handleInputChange}
         role="spinbutton" // Add the "role" attribute here
       />
-      <p>Showing {inputValue} events</p>
+    {/* <p>Showing {inputValue} events</p> */}
     </div>
   );
 };
