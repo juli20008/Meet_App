@@ -94,3 +94,16 @@ input[type="number"] {
   width: 250px;
   z-index: 1000;
 }
+
+.charts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px; /* Optional: Add some gap between the charts */
+}
+
+/* For screens smaller than 768px */
+@media (max-width: 768px) {
+  .charts-container {
+    grid-template-columns: 1fr; /* Display one item per column on smaller screens */
+  }
+}
