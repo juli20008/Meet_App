@@ -1,6 +1,7 @@
 // src/App.js
 import { useEffect, useState } from 'react';
 import CitySearch from './components/CitySearch';
+import CityEventsChart from './components/CityEventsChart';
 import EventList from './components/EventList';
 import NumberOfEvents from './components/NumberOfEvents';
 import { extractLocations, getEvents } from './api';
@@ -62,6 +63,7 @@ const App = () => {
         setErrorAlert={setErrorAlert}
         setWarningAlert={setWarningAlert}
       />
+      <CityEventsChart allLocations={allLocations} events={events} />
       <EventList events={events} numberOfEvents={currentNOE} />
     </div>
   );
